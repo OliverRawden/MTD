@@ -9,6 +9,8 @@ OUT = ROOT / "public"
 CFG = json.loads((ROOT / "config.json").read_text())
 SITE = CFG["site_name"]
 BASE = CFG["base_url"].rstrip("/")
+from urllib.parse import urlparse
+BASE_PATH = urlparse(BASE).path.rstrip("/")  # e.g. "/mtd-software-finder" on a github.io project site, "" on a custom domain
 E = lambda s: html.escape(str(s if s is not None else ""), quote=True)
 
 HMRC_FINDER = "https://www.tax.service.gov.uk/find-making-tax-digital-income-tax-software/"
@@ -381,7 +383,7 @@ abody = f"""<h1>About {E(SITE)}</h1>
 <p>Contains public sector information licensed under the <a href="{OGL}">Open Government Licence v3.0</a>. © Crown copyright. This site is not affiliated with, endorsed by or connected to HMRC or GOV.UK. You can <a href="{r}data/products.csv">download our copy of the data (CSV)</a> or <a href="{r}data/products.json">JSON</a> under the same licence.</p>
 <h2 id="method">How pages are built</h2><p>Every list states the HMRC field it filters on. “Tax-return items ready” counts how many of the {len(TR_ITEMS)} other tax-return items HMRC marks <em>Ready now</em> for that product. We sort A–Z rather than ranking, because the data doesn't support a “best”.</p>
 <h2 id="affiliate">Affiliate disclosure</h2><p><em>[Placeholder — to be finalised before any affiliate link goes live.]</em> Some links to software providers may become affiliate links, meaning we may earn a commission if you sign up, at no extra cost to you. Affiliate links will be labelled and marked <code>rel="sponsored"</code>. Commission never affects which products are listed, their order, or the HMRC data shown. Currently: <strong>no affiliate links are active</strong>.</p>
-<h2 id="contact">Contact and corrections</h2><p>Spotted something out of date? Product data mirrors HMRC; if HMRC's entry is wrong, providers should update it with HMRC. {('Email ' + E(CFG['contact_email'])) if CFG.get('contact_email') else '<em>[Contact address to be added at launch.]</em>'}</p>"""
+<h2 id="contact">Contact and corrections</h2><p>Spotted something out of date? Product data mirrors HMRC; if HMRC's entry is wrong, providers should update it with HMRC. {('Email ' + E(CFG['contact_email'])) if CFG.get('contact_email') else 'Contact details coming soon.'}</p>"""
 page("about/", f"About, Disclaimer & Data Sources | {SITE}", "Independent list of HMRC-recognised MTD for Income Tax software. Not tax advice. Data from HMRC under the Open Government Licence v3.0. Affiliate disclosure.", abody, 1, None, [("Home", ""), ("About", "about/")])
 
 # home
@@ -425,7 +427,7 @@ page("", f"MTD for Income Tax Software Finder – All {N} HMRC-Recognised Produc
      [{"@context": "https://schema.org", "@type": "WebSite", "name": SITE, "url": BASE + "/"}, faq(FAQ)])
 
 # 404, data, robots, sitemap
-(OUT / "404.html").write_text(f'<!doctype html><html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Page not found | {E(SITE)}</title><meta name="robots" content="noindex"><link rel="stylesheet" href="/assets/style.css"></head><body><main><div class="wrap"><h1>Page not found</h1><p>The product may have been renamed or removed from HMRC\'s list. <a href="/software/">See all software</a> or <a href="/changes/">what changed</a>.</p></div></main></body></html>')
+(OUT / "404.html").write_text(f'<!doctype html><html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Page not found | {E(SITE)}</title><meta name="robots" content="noindex"><link rel="stylesheet" href="{BASE_PATH}/assets/style.css"></head><body><main><div class="wrap"><h1>Page not found</h1><p>The product may have been renamed or removed from HMRC\'s list. <a href="{BASE_PATH}/">Home</a> · <a href="{BASE_PATH}/software/">See all software</a> or <a href="{BASE_PATH}/changes/">what changed</a>.</p></div></main></body></html>')
 (OUT / "data").mkdir()
 shutil.copy(DATA / "products.json", OUT / "data/products.json")
 with open(OUT / "data/products.csv", "w", newline="") as f:
@@ -439,6 +441,11 @@ with open(OUT / "data/products.csv", "w", newline="") as f:
 (OUT / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
     "".join(f"<url><loc>{E(u)}</loc><lastmod>{d}</lastmod></url>\n" for u, d in sitemap) + "</urlset>\n")
 (OUT / ".nojekyll").write_text("")
+# static/ holds verbatim root files, e.g. the Google Search Console HTML verification file (googleXXXX.html)
+STATIC = ROOT / "static"
+if STATIC.is_dir():
+    for sf in STATIC.iterdir():
+        if sf.is_file() and not sf.name.startswith(".") and sf.name != "README.txt": shutil.copy(sf, OUT / sf.name)
 if "example.invalid" in BASE:
     print("WARNING: config.json base_url is a placeholder; set the real domain before deploying (canonicals/sitemap use it).")
 print(f"built {len(sitemap)} indexable pages ({N} products, {len(GUIDES)} guides) into {OUT}")
