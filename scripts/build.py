@@ -265,7 +265,7 @@ for p in P:
     noi = [k for k, v in p["tax_return_items"].items() if v == NO]
     summary = (f"<p class=\"lede\">{E(p['name'])} is on HMRC's list of software recognised for Making Tax Digital for Income Tax. "
                f"HMRC lists it as {E(types)}, {('with a free version' if is_free(p) else 'a paid product')}, covering "
-               f"{E(', '.join(p['income_sources']).lower())} quarterly updates"
+               f"{E(', '.join(p['income_sources']))} quarterly updates"
                f"{' and the end-of-year tax return' if files_return(p) else ' (quarterly updates only — you would need another product for the tax return)'}.</p>")
     if files_return(p):
         summary += f"<p>Of the {len(TR_ITEMS)} other tax-return income items HMRC tracks, <strong>{trc}</strong> are ready now"
