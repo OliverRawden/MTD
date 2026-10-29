@@ -10,7 +10,7 @@ CFG = json.loads((ROOT / "config.json").read_text())
 SITE = CFG["site_name"]
 BASE = CFG["base_url"].rstrip("/")
 from urllib.parse import urlparse
-BASE_PATH = urlparse(BASE).path.rstrip("/")  # e.g. "/mtd-software-finder" on a github.io project site, "" on a custom domain
+BASE_PATH = urlparse(BASE).path.rstrip("/")  # e.g. "/MTD" on a github.io project site, "" on a custom domain
 E = lambda s: html.escape(str(s if s is not None else ""), quote=True)
 
 HMRC_FINDER = "https://www.tax.service.gov.uk/find-making-tax-digital-income-tax-software/"
