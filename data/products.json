@@ -1,7 +1,7 @@
 {
  "source": "https://www.tax.service.gov.uk/find-making-tax-digital-income-tax-software/",
  "licence": "Open Government Licence v3.0",
- "fetched_at": "2026-10-29T09:29:11+00:00",
+ "fetched_at": "2026-10-31T08:37:41+00:00",
  "count": 103,
  "products": [
   {
@@ -5826,7 +5826,7 @@
     "Calendar update period (1 April to 31 March)": "Ready now",
     "Software that creates digital records": "Ready now",
     "Bridging software that connects to records": "Ready now",
-    "Making Tax Digital for VAT": "Not included",
+    "Making Tax Digital for VAT": "Ready now",
     "Blindness or impaired vision": "Not included",
     "Deafness or impaired hearing": "Not included",
     "Motor or physical difficulties": "Not included",
@@ -7248,17 +7248,17 @@
     "Foreign property": "Ready now"
    },
    "tax_return_items": {
-    "UK interest": "Not included",
+    "UK interest": "Ready now",
     "Employment (PAYE)": "Not included",
-    "UK dividends": "Not included",
+    "UK dividends": "Ready now",
     "State Pension income": "Not included",
     "Private pension incomes": "Not included",
     "Partner income from a partnership": "Not included",
-    "Foreign dividends": "Not included",
-    "Foreign interest": "Not included",
+    "Foreign dividends": "Ready now",
+    "Foreign interest": "Ready now",
     "Private pension contributions": "Not included",
     "Construction Industry Scheme": "Not included",
-    "Charitable giving": "Not included",
+    "Charitable giving": "Ready now",
     "Capital Gains": "Not included",
     "Student Loan": "Not included",
     "Marriage Allowance": "Not included",

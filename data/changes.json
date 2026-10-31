@@ -4,5 +4,69 @@
   "type": "baseline",
   "count": 103,
   "note": "Started tracking HMRC's list: 103 recognised products."
+ },
+ {
+  "date": "2026-10-31",
+  "type": "diff",
+  "count": 103,
+  "previous_snapshot": "2026-10-29",
+  "added": [],
+  "removed": [],
+  "changed": [
+   {
+    "id": 3506,
+    "name": "Avona",
+    "changes": [
+     {
+      "field": "features",
+      "key": "Making Tax Digital for VAT",
+      "label": "Feature: Making Tax Digital for VAT",
+      "old": "Not included",
+      "new": "Ready now"
+     }
+    ]
+   },
+   {
+    "id": 3662,
+    "name": "TaxBridge by Filr",
+    "changes": [
+     {
+      "field": "tax_return_items",
+      "key": "Charitable giving",
+      "label": "Tax return item: Charitable giving",
+      "old": "Not included",
+      "new": "Ready now"
+     },
+     {
+      "field": "tax_return_items",
+      "key": "Foreign dividends",
+      "label": "Tax return item: Foreign dividends",
+      "old": "Not included",
+      "new": "Ready now"
+     },
+     {
+      "field": "tax_return_items",
+      "key": "Foreign interest",
+      "label": "Tax return item: Foreign interest",
+      "old": "Not included",
+      "new": "Ready now"
+     },
+     {
+      "field": "tax_return_items",
+      "key": "UK dividends",
+      "label": "Tax return item: UK dividends",
+      "old": "Not included",
+      "new": "Ready now"
+     },
+     {
+      "field": "tax_return_items",
+      "key": "UK interest",
+      "label": "Tax return item: UK interest",
+      "old": "Not included",
+      "new": "Ready now"
+     }
+    ]
+   }
+  ]
  }
 ]
